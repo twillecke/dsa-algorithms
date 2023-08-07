@@ -186,11 +186,70 @@ float Avg(struct Array arr)
     return (float)Sum(arr) / arr.length;
 }
 
+void Reverse(struct Array *arr)
+{
+    int i, j, temp;
+    for (i = 0, j = arr->length - 1; i < j; i++, j--)
+    {
+        temp = arr->A[i];
+        arr->A[i] = arr->A[j];
+        arr->A[j] = temp;
+        // or use previoulsy implemented swap() function
+    }
+}
+
+void InsertSort(struct Array *arr, int n)
+{
+    int i = arr->length - 1;
+    if (arr->length == arr->size) // check if there's room for insertion in array
+    {
+        printf("Array is full. No insert made");
+        return;
+    };
+    while (i >= 0 && arr->A[i] > n) // from top to bottom shift elements to right one step
+    {
+        arr->A[i + 1] = arr->A[i];
+        i--;
+    };
+    arr->A[i + 1] = n; // insert given number at right position
+    arr->length++;     // increase length property of arr
+}
+
+int isSorted(struct Array arr)
+{
+    int i;
+    for (i = 0; i < arr.length - 1; i++)
+    {
+        if (arr.A[i] > arr.A[i + 1])
+            return 0;
+    }
+    return 1;
+}
+
+void Rearrange(struct Array *arr) // negative numbers at left, positive ar rigth
+{
+    int i, j;
+    i = 0;
+    j = arr->length - 1;
+
+    while (i < j)
+    {
+        while (arr->A[i] < 0)
+            i++;
+        while (arr->A[j] >= 0)
+            j--;
+        if (i < j)
+            Swap(&arr->A[i], &arr->A[j]);
+    }
+}
+
 int main(int argc, char const *argv[])
 {
-    struct Array arr = {{2, 3, 4, 5, 6}, 10, 5};
-    Set(&arr, 2, 13);
-    printf("%f", Avg(arr));
+    struct Array arr = {{3, 2, 5, -6, -1}, 10, 5};
+    Display(arr);
+    Rearrange(&arr);
+    Display(arr);
 
     return 0;
 }
+

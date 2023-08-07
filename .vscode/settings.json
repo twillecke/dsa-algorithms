@@ -99,6 +99,7 @@
     "numbers": "cpp",
     "stdexcept": "cpp",
     "streambuf": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "stack_ADT.C": "cpp"
   }
 }
